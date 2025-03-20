@@ -3,6 +3,7 @@ package com.devsuperior.dsmeta.services;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.dto.SaleReportDTO;
+import com.devsuperior.dsmeta.dto.SaleSummaryDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 
@@ -29,14 +31,23 @@ public class SaleService {
 		return new SaleMinDTO(entity);
 	}
 	@Transactional(readOnly = true)
-	public Page<SaleReportDTO> getReport(Long id, String minDate, String maxDate, String name, Pageable pageable) {
+	public Page<SaleReportDTO> getReport(String minDate, String maxDate, String name, Pageable pageable) {
 		LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
         LocalDate min = (minDate == null || minDate.isEmpty()) ? today.minusYears(1) : LocalDate.parse(minDate);
         LocalDate max = (maxDate == null || maxDate.isEmpty()) ? today : LocalDate.parse(maxDate);
 
 		return repository.getReport(min, max, name, pageable);
 		
-
 	}
+	
+	 @Transactional(readOnly = true)
+	    public List<SaleSummaryDTO> getSummary(String minDate, String maxDate) {
+	        LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
+	        LocalDate min = (minDate == null || minDate.isEmpty()) ? today.minusYears(1) : LocalDate.parse(minDate);
+	        LocalDate max = (maxDate == null || maxDate.isEmpty()) ? today : LocalDate.parse(maxDate);
+	        return repository.getSummary(min, max);
+	    }
+	
+	
 
 }
