@@ -52,10 +52,10 @@ public class SaleController {
 	    }
 
 	  @GetMapping(value = "/summary")
-	    public ResponseEntity<?> getSummary(
-	            @RequestParam(value = "minDate", required = false) String minDate,
-	            @RequestParam(value = "maxDate", required = false) String maxDate) {
+	  public ResponseEntity<?> getSummary(
+	          @RequestParam(value = "minDate", required = false) String minDate,
+	          @RequestParam(value = "maxDate", required = false) String maxDate) {
 
-	        return ResponseEntity.ok(service.getSummary(minDate, maxDate));
-	    }
+	      return ResponseEntity.ok(service.getSummary(minDate, maxDate));
+	  }
 }

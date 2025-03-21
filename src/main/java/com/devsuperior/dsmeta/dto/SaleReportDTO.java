@@ -9,6 +9,9 @@ public class SaleReportDTO {
     private LocalDate date;
     private Double amount;
     private String sellerName;
+    
+    public SaleReportDTO() {
+    }
 
     public SaleReportDTO(Long id, LocalDate date, Double amount, String sellerName) {
         this.id = id;

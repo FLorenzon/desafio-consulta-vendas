@@ -40,14 +40,12 @@ public class SaleService {
 		
 	}
 	
-	 @Transactional(readOnly = true)
-	    public List<SaleSummaryDTO> getSummary(String minDate, String maxDate) {
-	        LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
-	        LocalDate min = (minDate == null || minDate.isEmpty()) ? today.minusYears(1) : LocalDate.parse(minDate);
-	        LocalDate max = (maxDate == null || maxDate.isEmpty()) ? today : LocalDate.parse(maxDate);
-	        return repository.getSummary(min, max);
-	    }
-	
-	
+	@Transactional(readOnly = true)
+	public List<SaleSummaryDTO> getSummary(String minDate, String maxDate) {
+	    LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
+	    LocalDate min = (minDate == null || minDate.isEmpty()) ? today.minusYears(1) : LocalDate.parse(minDate);
+	    LocalDate max = (maxDate == null || maxDate.isEmpty()) ? today : LocalDate.parse(maxDate);
+	    return repository.getSummary(min, max);
+	}
 
 }
