@@ -14,11 +14,11 @@ import com.devsuperior.dsmeta.entities.Sale;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-	@Query("SELECT new com.devsuperior.dsmeta.dto.SaleReportDTO(s.id, s.date, s.amount, s.seller.name) "
+	@Query("SELECT new com.devsuperior.dsmeta.dto.SaleReportDTO(s.seller.id, s.date, s.amount, s.seller.name) "
 			+ "FROM Sale s " + "WHERE (:minDate IS NULL OR s.date >= :minDate) "
 			+ "AND (:maxDate IS NULL OR s.date <= :maxDate) "
 			+ "AND (:name IS NULL OR UPPER(s.seller.name) LIKE UPPER(CONCAT('%', :name, '%'))) "
-			+ "ORDER BY s.date DESC, s.id DESC")
+			+ "ORDER BY s.date DESC, s.seller.id DESC")
 	Page<SaleReportDTO> getReport(LocalDate minDate, LocalDate maxDate, String name, Pageable pageable);
 
 	@Query("SELECT new com.devsuperior.dsmeta.dto.SaleSummaryDTO(s.seller.id, s.seller.name, COALESCE(SUM(s.amount), 0)) "
